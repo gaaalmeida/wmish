@@ -7,7 +7,7 @@ script_dependencies(){
 }
 script_dependencies
 
-version="0.0.1-20190520"
+version="0.0.1r1-20190520"
 ## Check variables
 #WM
 wmish_backtitle="Window Manager Installer in Shell v$version"
@@ -536,6 +536,13 @@ polybar_installer(){
     if [[ $polybar_cfg == *"launcher"* ]]; then
         polybar_ins_launcher
     fi
+    sleep 2
+    echo -e "\nStarting Polybar Installation\n"
+    git clone ${polybar_link}
+    cd ./polybar
+    sudo chmod +x ./build.sh
+    ./build.sh
+    cd ..
 }
 
 lightdm_enable_function(){
@@ -606,7 +613,7 @@ installer(){
     fi
 
     if [[ $dm == *"lightdm"* ]]; then
-        light_installer
+        lightdm_installer
         lightdm_enable_function
         echo -e "\nLightDM Successfully Installed \n"
         if [[ $lightdm_cfg == *"bspwm.desktop"* ]]; then
